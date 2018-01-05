@@ -1,7 +1,7 @@
 package dao.impl;
 
 import dao.DaoHelper;
-import dao.OrderlistDao;
+import dao.OrderDao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -12,11 +12,11 @@ import java.util.ArrayList;
 /**
  * Created by Ariana on 2018/1/5.
  */
-public class OrderlistDaoImpl implements OrderlistDao {
-    private static OrderlistDaoImpl orderlistDao = new OrderlistDaoImpl();
+public class OrderDaoImpl implements OrderDao {
+    private static OrderDaoImpl orderlistDao = new OrderDaoImpl();
     private static DaoHelper daoHelper = DaoHelperImpl.getBaseDaoInstance();
 
-    public static OrderlistDaoImpl getInstance() {
+    public static OrderDaoImpl getInstance() {
         return orderlistDao;
     }
 

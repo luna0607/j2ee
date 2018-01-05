@@ -1,10 +1,10 @@
 package servlet;
 
-import dao.OrderlistDao;
-import dao.UserDao;
+import dao.OrderDao;
+import dao.CustomerDao;
 import factory.DaoFactory;
 import factory.ServiceFactory;
-import service.VisitorCounterService;
+import service.OnlineUserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,47 +17,36 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "servlet.LoginServlet")
 public class LoginServlet extends HttpServlet {
-    private UserDao userDao = DaoFactory.getUserDao();
-    private OrderlistDao orderlistDao = DaoFactory.getOrderlistDao();
-    private VisitorCounterService visitorCounterService = ServiceFactory.getVisitorCounterService();
+    private CustomerDao customerDao = DaoFactory.getUserDao();
+    private OrderDao orderDao = DaoFactory.getOrderlistDao();
+    private OnlineUserService onlineUserService = ServiceFactory.getVisitorCounterService();
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html;charset=utf-8");
         String username = request.getParameter("id");
         String password = request.getParameter("pwd");
-//        System.out.println(username);
-//        System.out.println(password);
         HttpSession session = request.getSession();
-        session.setAttribute("tryLogin", 1);
+        session.setAttribute("loginTimes", 1);
         if (session.getAttribute("username") == null) {
             request.getRequestDispatcher("index.jsp").forward(request, response);
         } else {
-//            System.out.print("trylogin");
-            int userid = userDao.login(username, password);
-            if (userid != 0) {
-                visitorCounterService.raiseOnlineUser();
-                visitorCounterService.reduceOnlineVisitor();
-//                System.out.println("login successfully");
+            int userId = customerDao.login(username, password);
+            if (userId != 0) {
+                onlineUserService.raiseOnlineUser();
+                onlineUserService.reduceOnlineVisitor();
                 session.setAttribute("username", username);
-//                System.out.println("orderlist ready");
-
-                String orderlist = orderlistDao.getOrders(userid);
-//                System.out.println("orderlist successfully");
-                session.setAttribute("msg", "'欢迎您！" + username + "'");
-                session.setAttribute("orders", orderlist);
-//                System.out.println("set successfully" + session.getAttribute("orders"));
+                String orders = orderDao.getOrders(userId);
+                session.setAttribute("msg", "'登陆成功！" + username + "'");
+                session.setAttribute("orders", orders);
                 response.setContentType("text");
                 response.setCharacterEncoding("UTF-8");
                 PrintWriter out = response.getWriter();
-                out.print(orderlist);
-//                System.out.println("out successfully");
+                out.print(orders);
                 out.flush();
             } else {
-                session.setAttribute("msg", "'用户名或密码错误'");
-                session.setAttribute("tryLogin", 0);
-
+                session.setAttribute("msg", "'用户名或密码错误！'");
+                session.setAttribute("loginTimes", 0);
                 PrintWriter out = response.getWriter();
                 out.flush();
             }

@@ -2,7 +2,7 @@ package servlet;
 
 
 import factory.ServiceFactory;
-import service.VisitorCounterService;
+import service.OnlineUserService;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +17,7 @@ import java.io.PrintWriter;
  */
 @WebServlet(name = "servlet.LogoutServlet")
 public class LogoutServlet extends HttpServlet {
-    private VisitorCounterService visitorCounterService= ServiceFactory.getVisitorCounterService();
+    private OnlineUserService onlineUserService = ServiceFactory.getVisitorCounterService();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -32,8 +32,8 @@ public class LogoutServlet extends HttpServlet {
             request.getRequestDispatcher("index.jsp").forward(request, response);
         } else {
             session.invalidate();
-            visitorCounterService.reduceOnlineUser();
-            visitorCounterService.raiseOnlineVisitor();
+            onlineUserService.reduceOnlineUser();
+            onlineUserService.raiseOnlineVisitor();
             System.out.println("logout");
             PrintWriter out = response.getWriter();
             out.print("logout");

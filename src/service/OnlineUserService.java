@@ -1,15 +1,15 @@
 package service;
 
-import service.impl.VisitorCounterServiceImpl;
+import service.impl.OnlineUserServiceImpl;
 
 /**
  * Created by Ariana on 2018/1/5.
  */
-public interface VisitorCounterService {
+public interface OnlineUserService {
 
 
     public static long getOnlineVisitor(){
-        return VisitorCounterServiceImpl.getInstance().getOnlineVisitor();
+        return OnlineUserServiceImpl.getInstance().getOnlineVisitor();
     };
 
     public  void raiseOnlineVisitor();
@@ -18,7 +18,7 @@ public interface VisitorCounterService {
 
 
     public static long getOnlineUser(){
-        return VisitorCounterServiceImpl.getInstance().getOnlineUser();
+        return OnlineUserServiceImpl.getInstance().getOnlineUser();
     };
 
     public  void raiseOnlineUser();

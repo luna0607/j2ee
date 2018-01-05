@@ -1,13 +1,13 @@
 package factory;
 
-import service.VisitorCounterService;
-import service.impl.VisitorCounterServiceImpl;
+import service.OnlineUserService;
+import service.impl.OnlineUserServiceImpl;
 
 public class ServiceFactory {
 
-	public static VisitorCounterService getVisitorCounterService()
+	public static OnlineUserService getVisitorCounterService()
 	{
-		return VisitorCounterServiceImpl.getInstance();
+		return OnlineUserServiceImpl.getInstance();
 	}
 	
 }

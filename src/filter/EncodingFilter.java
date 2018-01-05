@@ -7,8 +7,8 @@ import java.io.IOException;
 /**
  * Created by Ariana on 2018/1/5.
  */
-@WebFilter(filterName = "Filter")
-public class Filter implements javax.servlet.Filter {
+@WebFilter(filterName = "EncodingFilter")
+public class EncodingFilter implements javax.servlet.Filter {
     public void destroy() {
     }
 

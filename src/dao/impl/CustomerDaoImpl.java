@@ -1,18 +1,18 @@
 package dao.impl;
 
 import dao.DaoHelper;
-import dao.UserDao;
+import dao.CustomerDao;
 
 import java.sql.*;
 
 /**
  * Created by Ariana on 2018/1/5.
  */
-public class UserDaoImpl implements UserDao {
-    private static UserDaoImpl userDao = new UserDaoImpl();
+public class CustomerDaoImpl implements CustomerDao {
+    private static CustomerDaoImpl userDao = new CustomerDaoImpl();
     private static DaoHelper daoHelper = DaoHelperImpl.getBaseDaoInstance();
 
-    public static UserDaoImpl getInstance() {
+    public static CustomerDaoImpl getInstance() {
         return userDao;
     }
 

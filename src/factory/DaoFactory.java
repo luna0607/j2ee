@@ -1,21 +1,21 @@
 package factory;
 
-import dao.OrderlistDao;
-import dao.UserDao;
-import dao.impl.OrderlistDaoImpl;
-import dao.impl.UserDaoImpl;
+import dao.OrderDao;
+import dao.CustomerDao;
+import dao.impl.OrderDaoImpl;
+import dao.impl.CustomerDaoImpl;
 
 
 public class DaoFactory {
 
-	public static OrderlistDao getOrderlistDao()
+	public static OrderDao getOrderlistDao()
 	{
-		return OrderlistDaoImpl.getInstance();
+		return OrderDaoImpl.getInstance();
 	}
 	
-	public static UserDao getUserDao()
+	public static CustomerDao getUserDao()
 	{
-		return UserDaoImpl.getInstance();
+		return CustomerDaoImpl.getInstance();
 	}
 
 }

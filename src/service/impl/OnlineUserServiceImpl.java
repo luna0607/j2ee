@@ -1,14 +1,14 @@
 package service.impl;
 
-import service.VisitorCounterService;
+import service.OnlineUserService;
 
 /**
  * Created by Ariana on 2018/1/5.
  */
-public class VisitorCounterServiceImpl implements VisitorCounterService {
+public class OnlineUserServiceImpl implements OnlineUserService {
 
-    private static VisitorCounterServiceImpl visitorCounter=new VisitorCounterServiceImpl();
-    public static VisitorCounterServiceImpl getInstance() {
+    private static OnlineUserServiceImpl visitorCounter=new OnlineUserServiceImpl();
+    public static OnlineUserServiceImpl getInstance() {
         return visitorCounter;
     }
 
