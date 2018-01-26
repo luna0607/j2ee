@@ -17,11 +17,9 @@ public class CustomerDaoImpl implements CustomerDao {
     }
 
     public int login(String username, String pwd) {
-        Connection conn = null;
         String sql;
         int count = 0;
         int userid = 0;
-        try {
             sql = "select id from users where username='" + username + " 'and pwd='" + pwd + "'";
              List<Object[]> result= HQLTools.find(sql);
             System.out.print("ok");
@@ -31,15 +29,7 @@ public class CustomerDaoImpl implements CustomerDao {
                     userid = (int)result.get(0)[1];
                 }
             }
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+
         if (count > 0) {
             return userid;
         } else return 0;

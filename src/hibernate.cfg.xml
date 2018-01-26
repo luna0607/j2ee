@@ -10,13 +10,13 @@
 		<property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
 
 		<!-- jdbc 的连接 url 和数据库（使用我们之前新建的 hibernate） -->
-		<property name="connection.url">jdbc:mysql://http://54.64.213.108/:6666/j2ee?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false</property>
+		<property name="connection.url">jdbc:mysql://http://localhost:3306/j2ee?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false</property>
 
 		<!-- 数据库用户名 -->
-		<property name="connection.username">j2ee</property>
+		<property name="connection.username">root</property>
 
 		<!-- 密码 -->
-		<property name="connection.password">j2ee123</property>
+		<property name="connection.password">j2ee</property>
 
 		<!-- 数据库使用的方言 -->
 		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
