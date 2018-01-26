@@ -1,14 +1,15 @@
-package service.impl;
+package service;
 
-import service.VisitorCounterService;
+import javax.ejb.Stateless;
 
 /**
  * Created by Ariana on 2018/1/5.
  */
-public class VisitorCounterServiceImpl implements VisitorCounterService {
+@Stateless(name = "VisitorCounterServiceBean")
+public class VisitorCounterServiceBean implements VisitorCounterService {
 
-    private static VisitorCounterServiceImpl visitorCounter=new VisitorCounterServiceImpl();
-    public static VisitorCounterServiceImpl getInstance() {
+    private static VisitorCounterServiceBean visitorCounter=new VisitorCounterServiceBean();
+    public static VisitorCounterServiceBean getInstance() {
         return visitorCounter;
     }
 

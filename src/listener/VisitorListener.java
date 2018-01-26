@@ -3,7 +3,7 @@ package listener; /**
  */
 
 
-import factory.ServiceFactory;
+import factory.EJBFactory;
 import service.VisitorCounterService;
 
 import javax.servlet.ServletContextEvent;
@@ -17,9 +17,7 @@ import javax.servlet.http.HttpSessionListener;
 @WebListener()
 public class VisitorListener implements ServletContextListener,
         HttpSessionListener, HttpSessionAttributeListener {
-        private VisitorCounterService visitorCounterService= ServiceFactory.getVisitorCounterService();
-
-
+         private VisitorCounterService visitorCounterService =new VisitorCounterService();
     // Public constructor is required by servlet spec
     public VisitorListener() {
     }

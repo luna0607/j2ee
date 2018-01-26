@@ -1,15 +1,16 @@
 package service;
 
-import service.impl.VisitorCounterServiceImpl;
+import javax.ejb.Remote;
 
 /**
  * Created by Ariana on 2018/1/5.
  */
+@Remote
 public interface VisitorCounterService {
 
 
     public static long getOnlineVisitor(){
-        return VisitorCounterServiceImpl.getInstance().getOnlineVisitor();
+        return VisitorCounterServiceBean.getInstance().getOnlineVisitor();
     };
 
     public  void raiseOnlineVisitor();
@@ -18,7 +19,7 @@ public interface VisitorCounterService {
 
 
     public static long getOnlineUser(){
-        return VisitorCounterServiceImpl.getInstance().getOnlineUser();
+        return VisitorCounterServiceBean.getInstance().getOnlineUser();
     };
 
     public  void raiseOnlineUser();
