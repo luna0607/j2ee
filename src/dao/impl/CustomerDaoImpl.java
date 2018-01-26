@@ -1,16 +1,16 @@
 package dao.impl;
 
-import dao.DaoHelper;
 import dao.CustomerDao;
+import util.HQLTools;
 
 import java.sql.*;
+import java.util.List;
 
 /**
  * Created by Ariana on 2018/1/5.
  */
 public class CustomerDaoImpl implements CustomerDao {
     private static CustomerDaoImpl userDao = new CustomerDaoImpl();
-    private static DaoHelper daoHelper = DaoHelperImpl.getBaseDaoInstance();
 
     public static CustomerDaoImpl getInstance() {
         return userDao;
@@ -22,18 +22,15 @@ public class CustomerDaoImpl implements CustomerDao {
         int count = 0;
         int userid = 0;
         try {
-            conn = DaoHelperImpl.getBaseDaoInstance().getConnection();
-            Statement stmt = conn.createStatement();
             sql = "select id from users where username='" + username + " 'and pwd='" + pwd + "'";
-            ResultSet result = stmt.executeQuery(sql);// executeQuery会返回结果的集合，否则返回空值
+             List<Object[]> result= HQLTools.find(sql);
             System.out.print("ok");
-            while (result.next()) {
-                count++;
-                System.out.print(result.getInt(1));
-                userid = result.getInt(1);
+            if (result != null) {
+                while (result.size()!=0) {
+                    count++;
+                    userid = (int)result.get(0)[1];
+                }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         } finally {
             if (conn != null) {
                 try {

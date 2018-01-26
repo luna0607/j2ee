@@ -4,6 +4,7 @@ import dao.OrderDao;
 import dao.CustomerDao;
 import factory.DaoFactory;
 import factory.ServiceFactory;
+import model.Orders;
 import service.OnlineUserService;
 
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 @WebServlet(name = "servlet.LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -36,13 +38,42 @@ public class LoginServlet extends HttpServlet {
                 onlineUserService.raiseOnlineUser();
                 onlineUserService.reduceOnlineVisitor();
                 session.setAttribute("username", username);
-                String orders = orderDao.getOrders(userId);
-                session.setAttribute("msg", "'登陆成功！" + username + "'");
-                session.setAttribute("orders", orders);
+
+                Orders[] orderlist = orderDao.getOrders(userId);
+                System.out.println("orderlist successfully");
+                session.setAttribute("msg", "'欢迎您！" + username + "'");
+                session.setAttribute("orders", orderlist);
+                System.out.println("set successfully" + session.getAttribute("orders"));
                 response.setContentType("text");
                 response.setCharacterEncoding("UTF-8");
                 PrintWriter out = response.getWriter();
-                out.print(orders);
+
+
+                //把数组转换成json字符串
+                ArrayList<String> list = new ArrayList<>();
+                StringBuilder sb = new StringBuilder("[");
+                for (Orders order : orderlist) {
+                    StringBuilder sb1 = new StringBuilder("");
+                    sb1.append("{\"name\":\"").append(order.getName()).append("\",");
+                    sb1.append("\"price\":\"").append(order.getPrice()).append("\",");
+                    sb1.append("\"number\":\"").append(order.getNumber()).append("\",");
+                    sb1.append("\"totalprice\":\"").append(order.getTotal_price()).append("\",");
+                    sb1.append("\"time\":\"").append(order.getCreate_time()).append("\"}");
+                    String thisOrder = sb1.toString();
+                    list.add(thisOrder);
+                }
+                if (list.size() != 0) {
+                    for (int i = 0; i < list.size() - 1; i++) {
+                        sb.append(list.get(i));
+                        sb.append(",");
+                    }
+                    sb.append(list.get(list.size() - 1)).append("]");
+                } else {
+                    sb.append("]");
+                }
+
+
+                out.print(sb.toString());
                 out.flush();
             } else {
                 session.setAttribute("msg", "'用户名或密码错误！'");
