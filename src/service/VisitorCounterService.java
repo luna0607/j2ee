@@ -1,11 +1,9 @@
 package service;
 
-import javax.ejb.Remote;
 
 /**
  * Created by Ariana on 2018/1/5.
  */
-@Remote
 public interface VisitorCounterService {
 
 

@@ -2,7 +2,7 @@ package servlets;
 
 
 
-import factory.EJBFactory;
+import factory.ServiceFactory;
 import service.VisitorCounterService;
 
 import javax.servlet.ServletException;
@@ -19,9 +19,7 @@ import java.io.PrintWriter;
  */
 @WebServlet(name = "servlet.LogoutServlet")
 public class LogoutServlet extends HttpServlet {
-    private VisitorCounterService visitorCounterService =
-            (VisitorCounterService) EJBFactory.getEJB("VisitorCounterServiceBean","VisitorCounterService");
-
+    private VisitorCounterService visitorCounterService = ServiceFactory.getVisitorCounterService();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();

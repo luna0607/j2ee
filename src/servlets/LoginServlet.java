@@ -3,7 +3,8 @@ package servlets;
 
 import dao.OrderlistDao;
 import dao.UserDao;
-import factory.EJBFactory;
+import factory.DaoFactory;
+import factory.ServiceFactory;
 import model.Orders;
 import service.VisitorCounterService;
 
@@ -19,11 +20,9 @@ import java.util.ArrayList;
 
 @WebServlet(name = "servlet.LoginServlet")
 public class LoginServlet extends HttpServlet {
-    private UserDao userDao = (UserDao) EJBFactory.getEJB("UserDaoBean", "dao.UserDao");
-    private OrderlistDao orderlistDao = (OrderlistDao) EJBFactory.getEJB("OrderlistDaoBean", "dao.OrderlistDao");
-    private VisitorCounterService visitorCounterService =
-            (VisitorCounterService) EJBFactory.getEJB("VisitorCounterServiceBean", "service.VisitorCounterService");
-
+    private UserDao userDao = DaoFactory.getUserDao();
+    private OrderlistDao orderlistDao = DaoFactory.getOrderlistDao();
+    private VisitorCounterService visitorCounterService = ServiceFactory.getVisitorCounterService();
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");

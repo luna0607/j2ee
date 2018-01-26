@@ -1,11 +1,9 @@
 package service;
 
-import javax.ejb.Stateless;
 
 /**
  * Created by Ariana on 2018/1/5.
  */
-@Stateless(name = "VisitorCounterServiceBean")
 public class VisitorCounterServiceBean implements VisitorCounterService {
 
     private static VisitorCounterServiceBean visitorCounter=new VisitorCounterServiceBean();

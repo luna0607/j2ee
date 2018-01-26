@@ -3,8 +3,8 @@ package listener; /**
  */
 
 
-import factory.EJBFactory;
-import service.VisitorCounterService;
+import factory.ServiceFactory;
+import service.OnlineUserService;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -17,7 +17,9 @@ import javax.servlet.http.HttpSessionListener;
 @WebListener()
 public class VisitorListener implements ServletContextListener,
         HttpSessionListener, HttpSessionAttributeListener {
-         private VisitorCounterService visitorCounterService =new VisitorCounterService();
+        private OnlineUserService onlineUserService = ServiceFactory.getVisitorCounterService();
+
+
     // Public constructor is required by servlet spec
     public VisitorListener() {
     }
@@ -44,13 +46,13 @@ public class VisitorListener implements ServletContextListener,
     // -------------------------------------------------------
     public void sessionCreated(HttpSessionEvent se) {
       /* Session is created. */
-        visitorCounterService.raiseOnlineVisitor();
+        onlineUserService.raiseOnlineVisitor();
     }
 
     public void sessionDestroyed(HttpSessionEvent se) {
       /* Session is destroyed. */
         System.out.println("destroyed");
-        visitorCounterService.reduceOnlineVisitor();
+        onlineUserService.reduceOnlineVisitor();
     }
 
     // -------------------------------------------------------

@@ -2,24 +2,19 @@ package dao;
 
 
 import model.User;
-
-import javax.persistence.*;
+import util.HQLTools;
 import java.util.List;
 
 public class UserDaoBean implements UserDao
 {
 
-	@PersistenceUnit(name = "nju")
-	private EntityManagerFactory factory;
+    private static UserDao userDao=new UserDaoBean();
+    public static UserDao getInstance(){
+        return userDao;
+    }
 
 	public UserDaoBean() {
-		factory = Persistence.createEntityManagerFactory("nju");
-		em = factory.createEntityManager();
 	}
-
-	@PersistenceContext
-	protected EntityManager em;
-
 
 	@Override
 	    public int login(String username, String pwd) {
@@ -27,8 +22,7 @@ public class UserDaoBean implements UserDao
         String sql;
         int count = 0;
         int userid = 0;
-        Query query = em.createQuery("select * from users where username="+username+"and pwd="+pwd+";");
-        List result= query.getResultList();
+        List result= HQLTools.find("select * from users where username="+username+"and pwd="+pwd+";");
         System.out.print("ok");
         for(Object user:result) {
             count++;

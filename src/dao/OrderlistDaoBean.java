@@ -1,39 +1,29 @@
 package dao;
 
 import model.Orders;
+import util.HQLTools;
 
 import javax.persistence.*;
 import java.util.List;
+
 
 /**
  * Created by Ariana on 2018/1/5.
  */
 
 public class OrderlistDaoBean implements OrderlistDao {
-    private OrderlistDaoBean orderlistDao = new OrderlistDaoBean();
-
-	@PersistenceUnit(name = "nju")
-	private EntityManagerFactory factory;
-
-	public OrderlistDaoBean() {
-		factory = Persistence.createEntityManagerFactory("nju");
-		em = factory.createEntityManager();
-	}
-
-	@PersistenceContext
-	protected EntityManager em;
+	private static OrderlistDao orderlistDao = new OrderlistDaoBean();
 
 
-    public OrderlistDaoBean getInstance() {
-        return orderlistDao;
+	public static OrderlistDao getInstance() {
+		return orderlistDao;
     }
 
 
     public Orders[] getOrders(int userId) {
     			try {
-    				Query query = em.createQuery("select * from orders p where userid="+userId+";");
-    				List orders = query.getResultList();
-    				Orders[] tmp=new Orders[orders.size()];
+					List orders = HQLTools.find("select * from orders p where userid="+userId+";");
+					Orders[] tmp=new Orders[orders.size()];
     				for(int i=0;i<orders.size();i++){
     					tmp[i]=(Orders)orders.get(i);
 					}
